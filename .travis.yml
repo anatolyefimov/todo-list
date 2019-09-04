@@ -1,5 +1,5 @@
 language: node_js
-node_js: "7"
+node_js: "10"
 
 before_install: cd frontend
 install: npm i
@@ -7,7 +7,7 @@ install: npm i
 jobs:
   include:
     - stage: "frontend"
-      node_js: "7"
+      node_js: "10"
       name: "Building"
       script: npm start
     - name: "Testing"
