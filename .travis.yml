@@ -9,6 +9,6 @@ jobs:
     - stage: "frontend"
       node_js: "10"
       name: "Building"
-      script: npm start
+      script: npm run build
     - name: "Testing"
       script: npm test
