@@ -5,7 +5,9 @@ install: npm i
 
 jobs:
   include:
-    - stage: "Building"
+      node_js: "7"
+    - stage: "frontend"
+      name: "Building"
       script: npm start
-    - stage: "Testing"
+    - name: "Testing"
       script: npm test
