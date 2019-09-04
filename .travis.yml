@@ -1,11 +1,14 @@
 language: node_js
+node_js: "10"
 
 before_install: cd frontend
 install: npm i
 
 jobs:
   include:
-    - stage: "Building"
-      script: npm start
-    - stage: "Testing"
+    - stage: "frontend"
+      node_js: "10"
+      name: "Building"
+      script: npm run build
+    - name: "Testing"
       script: npm test
