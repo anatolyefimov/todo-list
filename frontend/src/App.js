@@ -1,10 +1,13 @@
 import React from 'react';
+
+import Container from 'components/Container'
+
 import './App.css';
 
 function App() {
 	return (
 		<div className="App">
-			Долого не смотри может хуй в рот залететь!!!
+			<Container/>
 		</div>
 	);
 }
