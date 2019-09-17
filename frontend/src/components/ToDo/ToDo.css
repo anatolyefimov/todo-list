@@ -1,0 +1,7 @@
+.ToDo {
+    padding: 10px;
+}
+
+.ToDo:hover {
+    background-color: rgb(201, 201, 201);
+}
