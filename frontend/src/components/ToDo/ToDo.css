@@ -1,7 +1,24 @@
-.ToDo {
+li {
     padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.ToDo:hover {
+li button {
+    background-color: inherit;
+    border: none;
+    font-size: 20px;
+}
+
+li:hover {
     background-color: rgb(201, 201, 201);
+}
+
+.ToDo {
+    transition: text-decoration 2s;
+}
+
+.is-done {
+    text-decoration: line-through;
 }

@@ -15,12 +15,17 @@ class App extends React.Component {
 
 		this.handleAdd = this.handleAdd.bind(this)
 		this.handleInputChange = this.handleInputChange.bind(this)
+		this.handleDelete = this.handleDelete.bind(this)
+		this.handleStatusChange = this.handleStatusChange.bind(this)
 	}
 
 	handleAdd() {
 		if (this.state.inputValue) {
 			this.setState(state => ({
-				toDoList: state.toDoList.concat({text: state.inputValue}),
+				toDoList: state.toDoList.concat({
+					text: state.inputValue,
+					isDone: false
+				}),
 				inputValue: ""
 			}));
 		}
@@ -31,6 +36,26 @@ class App extends React.Component {
 			inputValue: e.target.value
 		})
 	}
+
+	handleDelete(e) {
+		const toDoList = this.state.toDoList.slice();
+		const ind = parseInt(e.target.parentNode.getAttribute("id"));
+		toDoList.splice(ind, 1);
+		this.setState({
+			toDoList: toDoList
+		})
+		e.stopPropagation()
+	}
+
+	handleStatusChange(e) {
+		const toDoList = this.state.toDoList.slice();
+		const ind = parseInt(e.target.getAttribute("id"));
+		toDoList[ind].isDone = !toDoList[ind].isDone;
+
+		this.setState({
+			toDoList: toDoList
+		})
+	}
 	
 	render() {
 		const toDoList = this.state.toDoList.slice()
@@ -39,15 +64,20 @@ class App extends React.Component {
 			<div className="App">
 				<h1>ToDo List</h1>
 				<form className="App__form">
-					<input type="text" value={this.state.inputValue} onChange={this.handleInputChange}/>
+					<input type="text" placeholder="Type something here..." value={this.state.inputValue} onChange={this.handleInputChange}/>
 					<input type="button" value="Add" onClick={this.handleAdd}/>
 				</form>
 
 				{
 					toDoList.length ? 
-					<ToDoList list={toDoList}/>
+					<ToDoList list={toDoList} handleDelete={this.handleDelete} handleStatusChange={this.handleStatusChange}/>
 					:
-					"Do something, dude!"
+					<div style={{ 
+						fontSize: 20,
+						marginTop:15
+					}}>
+					 Do something, dude!
+					</div>
 				}
 			</div>
 		);
