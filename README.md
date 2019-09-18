@@ -1,3 +1,6 @@
-# TODO list
-## tolya sosatb
-## roma sosatb
+# ToDo List
+## frontend
+```
+$ cd frontend
+$ npm i
+$ npm start
