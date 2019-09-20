@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ToDoList from 'components/ToDoList';
+import fetchTodos from 'api/fetchTodos';
 
 import './App.css';
 
@@ -17,6 +18,15 @@ class App extends React.Component {
 		this.handleInputChange = this.handleInputChange.bind(this)
 		this.handleDelete = this.handleDelete.bind(this)
 		this.handleStatusChange = this.handleStatusChange.bind(this)
+	}
+
+	componentDidMount() {
+		fetchTodos()
+			.then(todos => {
+				this.setState({
+					toDoList: todos
+				})
+			});
 	}
 
 	handleAdd() {
