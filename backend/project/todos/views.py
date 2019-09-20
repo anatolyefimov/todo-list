@@ -1,18 +1,13 @@
-from django.shortcuts import render
 from django.http import HttpResponse
-from django.core import serializers
-import json
+from django.core.serializers import serialize
 
 from .models import Todo
 
 
-def index(request):
+def eject(request):
     todos = Todo.objects.all()
-    res = {
-        "todos": todos
-    }
-    
+    data = serialize('json', todos)
 
-    return HttpResponse(json.dumps(todos), content_type='application/json')
+    return HttpResponse(data, content_type='application/json')
 
 
