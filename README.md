@@ -27,3 +27,8 @@ $ cd project
 $ python manage.py runserver
 ```
 Редактировать БД: http://127.0.0.1:8000/admin
+
+Создать пользователя:
+```
+python manage.py createsuperuser
+```
