@@ -5,6 +5,7 @@ import ToDoList from 'components/ToDoList';
 import fetchTodos from 'api/fetchTodos';
 import addTodo from 'api/addTodo'
 import deleteTodo from 'api/deleteTodo'
+import statusChange from 'api/statusChange'
 
 import './App.css';
 
@@ -81,23 +82,25 @@ class App extends React.Component {
 					toDoList: toDoList
 				})
 			})
-		// const toDoList = this.state.toDoList.slice();
-		// 	const ind = parseInt(e.target.parentNode.getAttribute("ind"));
-		// toDoList.splice(ind, 1);
-		// this.setState({
-		// 	toDoList: toDoList
-		// })
-		
 	}
 
 	handleStatusChange(e) {
-		const toDoList = this.state.toDoList.slice();
-		const ind = parseInt(e.target.getAttribute("ind"));
-		toDoList[ind].isDone = !toDoList[ind].isDone;
+		
+		let pk = parseInt(e.target.getAttribute('pk'));
+		const ind = parseInt(e.target.getAttribute('ind'));
+		let data = {
+			pk: pk
+		}
 
-		this.setState({
-			toDoList: toDoList
-		})
+		statusChange(data)
+			.then(() => {
+				const toDoList = this.state.toDoList.slice();
+				toDoList[ind].isDone = !toDoList[ind].isDone;
+
+				this.setState({
+					toDoList: toDoList
+				})
+			})
 	}
 	
 	render() {

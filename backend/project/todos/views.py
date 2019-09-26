@@ -31,4 +31,15 @@ def delete(request):
     return HttpResponse(res, content_type='application/json')
 
 
+@csrf_exempt
+def status_change(request):
+    data = json.loads(request.body)
+    todo = Todo.objects.get(pk=data['pk'])
+
+    todo.is_done = not todo.is_done
+
+    todo.save()
+    res = json.dumps({'status': 'ok'})
+
+    return HttpResponse(res, content_type='application/json')
 
