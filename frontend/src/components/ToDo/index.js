@@ -6,7 +6,7 @@ function ToDo(props) {
     const classes = `ToDo ${props.data.isDone ? 'is-done' : ''}`
 
     return (
-    <li id={props.id} onClick={props.handleStatusChange}>
+    <li pk={props.data.pk} ind={props.ind} onClick={props.handleStatusChange}>
         <div className={classes}>
             { props.data.text } 
         </div>

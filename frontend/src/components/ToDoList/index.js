@@ -6,7 +6,13 @@ import ToDo from 'components/ToDo'
 
 function ToDoList(props) {
     const toDoList = props.list.map((toDo, ind) => (
-        <ToDo key={ind} id={ind} data={toDo} handleDelete={props.handleDelete} handleStatusChange={props.handleStatusChange}/>
+        <ToDo 
+            key={toDo.pk} 
+            ind={ind} 
+            data={toDo} 
+            handleDelete={props.handleDelete} 
+            handleStatusChange={props.handleStatusChange}
+        />
     ));
 
     return (

@@ -2,6 +2,7 @@ import React from 'react';
 
 import ToDoList from 'components/ToDoList';
 import fetchTodos from 'api/fetchTodos';
+import addTodo from 'api/addTodo'
 
 import './App.css';
 
@@ -30,15 +31,30 @@ class App extends React.Component {
 	}
 
 	handleAdd() {
-		if (this.state.inputValue) {
-			this.setState(state => ({
-				toDoList: state.toDoList.concat({
-					text: state.inputValue,
-					isDone: false
-				}),
-				inputValue: ""
-			}));
+		let todo = {
+			text: this.state.inputValue,
+			isDone: false
 		}
+
+		addTodo(todo)
+			.then(res => {
+				let toDoList = this.state.toDoList.slice();
+				let inputValue = this.state.inputValue;
+
+				toDoList = toDoList.concat({
+					pk: res.pk,
+					text: inputValue,
+					isDone: false
+				})
+
+				if (this.state.inputValue) {
+					this.setState({
+						toDoList: toDoList,
+						inputValue: ""
+					});
+				}
+			})
+		
 	}
 
 	handleInputChange(e) {
@@ -49,7 +65,7 @@ class App extends React.Component {
 
 	handleDelete(e) {
 		const toDoList = this.state.toDoList.slice();
-		const ind = parseInt(e.target.parentNode.getAttribute("id"));
+			const ind = parseInt(e.target.parentNode.getAttribute("ind"));
 		toDoList.splice(ind, 1);
 		this.setState({
 			toDoList: toDoList
@@ -59,7 +75,7 @@ class App extends React.Component {
 
 	handleStatusChange(e) {
 		const toDoList = this.state.toDoList.slice();
-		const ind = parseInt(e.target.getAttribute("id"));
+		const ind = parseInt(e.target.getAttribute("ind"));
 		toDoList[ind].isDone = !toDoList[ind].isDone;
 
 		this.setState({
@@ -73,10 +89,10 @@ class App extends React.Component {
 		return (
 			<div className="App">
 				<h1>ToDo List</h1>
-				<form className="App__form">
+				<div className="App__form">
 					<input type="text" placeholder="Type something here..." value={this.state.inputValue} onChange={this.handleInputChange}/>
 					<input type="button" value="Add" onClick={this.handleAdd}/>
-				</form>
+				</div>
 
 				{
 					toDoList.length ? 
@@ -86,7 +102,7 @@ class App extends React.Component {
 						fontSize: 20,
 						marginTop:15
 					}}>
-					 Do something, dude!
+						Do something, dude!
 					</div>
 				}
 			</div>

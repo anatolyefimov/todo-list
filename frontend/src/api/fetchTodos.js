@@ -5,7 +5,7 @@ async function fetchTodos() {
         {
             pk: todo.pk,
             text: todo.fields.text,
-            isDome: todo.fields.is_done,
+            isDone: todo.fields.is_done,
         }
     ));
 
