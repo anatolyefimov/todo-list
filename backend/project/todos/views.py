@@ -21,5 +21,14 @@ def add(request):
 
     return HttpResponse(res, content_type='application/json')
 
+@csrf_exempt
+def delete(request):
+    data = json.loads(request.body)
+    todo = Todo.objects.get(pk=data['pk'])
+    todo.delete()
+    res = json.dumps({'status': 'ok'})
+
+    return HttpResponse(res, content_type='application/json')
+
 
 

@@ -1,8 +1,10 @@
 import React from 'react';
 
 import ToDoList from 'components/ToDoList';
+
 import fetchTodos from 'api/fetchTodos';
 import addTodo from 'api/addTodo'
+import deleteTodo from 'api/deleteTodo'
 
 import './App.css';
 
@@ -64,13 +66,28 @@ class App extends React.Component {
 	}
 
 	handleDelete(e) {
-		const toDoList = this.state.toDoList.slice();
-			const ind = parseInt(e.target.parentNode.getAttribute("ind"));
-		toDoList.splice(ind, 1);
-		this.setState({
-			toDoList: toDoList
-		})
-		e.stopPropagation()
+		e.stopPropagation();	
+		let pk = parseInt(e.target.parentNode.getAttribute('pk'));
+		const ind = parseInt(e.target.parentNode.getAttribute("ind"));
+		let data = {
+			pk: pk
+		}
+
+		deleteTodo(data)
+			.then(() => {
+				const toDoList = this.state.toDoList.slice();
+				toDoList.splice(ind, 1);
+				this.setState({
+					toDoList: toDoList
+				})
+			})
+		// const toDoList = this.state.toDoList.slice();
+		// 	const ind = parseInt(e.target.parentNode.getAttribute("ind"));
+		// toDoList.splice(ind, 1);
+		// this.setState({
+		// 	toDoList: toDoList
+		// })
+		
 	}
 
 	handleStatusChange(e) {
